@@ -16,6 +16,7 @@ public class StateCensusAnalyser {
 			Reader r = new BufferedReader(new FileReader(fileURl));
 			@SuppressWarnings("resource")
 			CSVReader c = new CSVReader(r);
+
 			String[] records;
 			CSVStateCensus obj = new CSVStateCensus();
 			while ((records = c.readNext()) != null) {
@@ -27,7 +28,12 @@ public class StateCensusAnalyser {
 			}
 
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			try{
+				throw new InvalidException();
+			}catch(InvalidException E) {
+				E.toString();
+			}
+			
 		}
 	}
 
@@ -35,4 +41,13 @@ public class StateCensusAnalyser {
 		getDataFromCSVfile(CVSfile);
 	}
 
+}
+
+class InvalidException extends Exception {
+
+	private static final long serialVersionUID = 1L;
+	@Override
+	public String toString() {
+		return "Invalid Input";
+	}
 }
